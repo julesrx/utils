@@ -1,0 +1,16 @@
+{
+  "name": "@julesrx/utils",
+  "module": "src/index.ts",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "scripts": {
+    "build": "bunchee"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "bunchee": "^3.9.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
