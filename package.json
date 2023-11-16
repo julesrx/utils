@@ -1,16 +1,27 @@
 {
-  "name": "@julesrx/utils",
-  "module": "src/index.ts",
-  "type": "module",
-  "main": "./dist/index.mjs",
-  "scripts": {
-    "build": "bunchee"
-  },
-  "devDependencies": {
-    "bun-types": "latest",
-    "bunchee": "^3.9.2"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  }
+    "name": "@julesrx/utils",
+    "main": "./dist/index.js",
+    "module": "./dist/index.esm.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": "./dist/index.mjs",
+            "module": "./dist/index.esm.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist/**/*.{js,d.ts,mjs,d.mts}"
+    ],
+    "scripts": {
+        "build": "bunchee"
+    },
+    "devDependencies": {
+        "bun-types": "latest",
+        "bunchee": "^3.9.2"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    }
 }
