@@ -22,12 +22,14 @@
     "license": "MIT",
     "scripts": {
         "build": "bunchee",
-        "prepublishOnly": "bun run build"
+        "test": "vitest",
+        "prepublishOnly": "bun run test && bun run build"
     },
     "devDependencies": {
         "bun-types": "latest",
         "bunchee": "^3.9.2",
-        "typescript": "^5.2.2"
+        "typescript": "^5.2.2",
+        "vitest": "^0.34.6"
     },
     "peerDependencies": {
         "typescript": "^5.0.0"
