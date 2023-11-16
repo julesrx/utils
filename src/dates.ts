@@ -1,6 +1,5 @@
-export const relativeDateFormatter = new Intl.RelativeTimeFormat();
-
-const dateDivisions: { amount: number; name: Intl.RelativeTimeFormatUnit }[] = [
+type Division = { amount: number; name: Intl.RelativeTimeFormatUnit };
+const dateDivisions: Division[] = [
     { amount: 60, name: 'seconds' },
     { amount: 60, name: 'minutes' },
     { amount: 24, name: 'hours' },
@@ -10,7 +9,9 @@ const dateDivisions: { amount: number; name: Intl.RelativeTimeFormatUnit }[] = [
     { amount: Number.POSITIVE_INFINITY, name: 'years' },
 ];
 
-export const formatTimeAgo = (date: Date) => {
+export const formatTimeAgo = (date: Date, locales?: string | string[]) => {
+    const relativeDateFormatter = new Intl.RelativeTimeFormat(locales);
+
     const now = new Date();
     let duration = (date.getTime() - now.getTime()) / 1000;
 
