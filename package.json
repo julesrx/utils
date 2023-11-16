@@ -23,7 +23,7 @@
     "scripts": {
         "build": "bunchee",
         "test": "vitest",
-        "prepublishOnly": "bun run test && bun run build"
+        "prepublishOnly": "bun run test --run && bun run build"
     },
     "devDependencies": {
         "bun-types": "latest",
