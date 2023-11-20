@@ -14,11 +14,7 @@ interface CacheStorageOptions {
 export interface CacheStorage {
     get: <T>(id: string) => Promise<T | null>;
     set: <T>(id: string, value: T, secondsExpiration?: number) => Promise<void>;
-    gset: <T>(
-        id: string,
-        getter: () => T | Promise<T>,
-        secondsExpiration?: number
-    ) => Promise<T | null>;
+    gset: <T>(id: string, getter: () => T | Promise<T>, secondsExpiration?: number) => Promise<T>;
 }
 
 export const createCacheStorage = ({
