@@ -1,67 +1,86 @@
-import { formatTimeAgo } from '../src/dates';
-import { expect, test, vi } from 'vitest';
+import { createTimeAgoFormatter, createDurationFormatter } from '../src/dates';
+import { describe, expect, test, vi } from 'vitest';
 
-const timeAgo = (date: Date) => formatTimeAgo(date, 'en-US');
+describe('time ago formatter', () => {
+    const timeAgoFormatter = createTimeAgoFormatter('en-US');
 
-test('format seconds', () => {
-    var now = new Date(2023, 11, 16, 12, 34, 16);
-    var then = new Date(2023, 11, 16, 12, 34, 10);
+    test('format seconds ago', () => {
+        var now = new Date(2023, 11, 16, 12, 34, 16);
+        var then = new Date(2023, 11, 16, 12, 34, 10);
 
-    vi.setSystemTime(now);
+        vi.setSystemTime(now);
 
-    expect(timeAgo(then)).toBe('6 seconds ago');
+        expect(timeAgoFormatter.format(then)).toBe('6 seconds ago');
+    });
+
+    test('format minutes ago', () => {
+        var now = new Date(2023, 11, 16, 12, 49);
+        var then = new Date(2023, 11, 16, 12, 34);
+
+        vi.setSystemTime(now);
+
+        expect(timeAgoFormatter.format(then)).toBe('15 minutes ago');
+    });
+
+    test('format hours ago', () => {
+        var now = new Date(2023, 11, 16, 19);
+        var then = new Date(2023, 11, 16, 12);
+
+        vi.setSystemTime(now);
+
+        expect(timeAgoFormatter.format(then)).toBe('7 hours ago');
+    });
+
+    test('format days ago', () => {
+        var now = new Date(2023, 11, 16);
+        var then = new Date(2023, 11, 13);
+
+        vi.setSystemTime(now);
+
+        expect(timeAgoFormatter.format(then)).toBe('3 days ago');
+    });
+
+    test('format weeks ago', () => {
+        var now = new Date(2023, 11, 27);
+        var then = new Date(2023, 11, 13);
+
+        vi.setSystemTime(now);
+
+        expect(timeAgoFormatter.format(then)).toBe('2 weeks ago');
+    });
+
+    test('format months ago', () => {
+        var now = new Date(2024, 3);
+        var then = new Date(2023, 11);
+
+        vi.setSystemTime(now);
+
+        expect(timeAgoFormatter.format(then)).toBe('4 months ago');
+    });
+
+    test('format years ago', () => {
+        var now = new Date(2027, 3);
+        var then = new Date(2023, 11);
+
+        vi.setSystemTime(now);
+
+        expect(timeAgoFormatter.format(then)).toBe('3 years ago');
+    });
 });
 
-test('format minutes', () => {
-    var now = new Date(2023, 11, 16, 12, 49);
-    var then = new Date(2023, 11, 16, 12, 34);
+describe.concurrent('duration formatter', () => {
+    const durationFormatter = createDurationFormatter('en-US');
+    const shortFormatter = createDurationFormatter('en-US', 'short', 'narrow');
 
-    vi.setSystemTime(now);
+    test('format 1m', () => expect(durationFormatter.format(6e4)).toBe('1 minute'));
 
-    expect(timeAgo(then)).toBe('15 minutes ago');
-});
+    test('format 1h40m', () => expect(durationFormatter.format(6e6)).toBe('1 hour and 40 minutes'));
 
-test('format hours', () => {
-    var now = new Date(2023, 11, 16, 19);
-    var then = new Date(2023, 11, 16, 12);
+    test('format 2h21m', () =>
+        expect(durationFormatter.format(846e4)).toBe('2 hours and 21 minutes'));
 
-    vi.setSystemTime(now);
+    test('format 1d19h49s', () =>
+        expect(durationFormatter.format(154849e3)).toBe('1 day, 19 hours, and 49 seconds'));
 
-    expect(timeAgo(then)).toBe('7 hours ago');
-});
-
-test('format days', () => {
-    var now = new Date(2023, 11, 16);
-    var then = new Date(2023, 11, 13);
-
-    vi.setSystemTime(now);
-
-    expect(timeAgo(then)).toBe('3 days ago');
-});
-
-test('format weeks', () => {
-    var now = new Date(2023, 11, 27);
-    var then = new Date(2023, 11, 13);
-
-    vi.setSystemTime(now);
-
-    expect(timeAgo(then)).toBe('2 weeks ago');
-});
-
-test('format months', () => {
-    var now = new Date(2024, 3);
-    var then = new Date(2023, 11);
-
-    vi.setSystemTime(now);
-
-    expect(timeAgo(then)).toBe('4 months ago');
-});
-
-test('format years', () => {
-    var now = new Date(2027, 3);
-    var then = new Date(2023, 11);
-
-    vi.setSystemTime(now);
-
-    expect(timeAgo(then)).toBe('3 years ago');
+    test('format short 1h19m', () => expect(shortFormatter.format(846e4)).toBe('2 hr, 21 min'));
 });

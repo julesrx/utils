@@ -1,4 +1,7 @@
 type Division = { amount: number; name: Intl.RelativeTimeFormatUnit };
+type Locales = string | string[] | undefined;
+type UnitDisplay = 'short' | 'long' | 'narrow' | undefined;
+
 const dateDivisions: Division[] = [
     { amount: 60, name: 'seconds' },
     { amount: 60, name: 'minutes' },
@@ -9,17 +12,59 @@ const dateDivisions: Division[] = [
     { amount: Number.POSITIVE_INFINITY, name: 'years' },
 ];
 
-export const formatTimeAgo = (date: Date, locales?: string | string[]) => {
+export const createTimeAgoFormatter = (locales: Locales) => {
     const relativeDateFormatter = new Intl.RelativeTimeFormat(locales);
 
-    const now = new Date();
-    let duration = (date.getTime() - now.getTime()) / 1000;
+    return {
+        format: (date: Date) => {
+            const now = new Date();
+            let duration = (date.getTime() - now.getTime()) / 1000;
 
-    for (let i = 0; i < dateDivisions.length; i++) {
-        const division = dateDivisions[i];
-        if (Math.abs(duration) < division.amount) {
-            return relativeDateFormatter.format(Math.round(duration), division.name);
-        }
-        duration /= division.amount;
-    }
+            for (let i = 0; i < dateDivisions.length; i++) {
+                const division = dateDivisions[i];
+                if (Math.abs(duration) < division.amount) {
+                    return relativeDateFormatter.format(Math.round(duration), division.name);
+                }
+                duration /= division.amount;
+            }
+        },
+    };
+};
+
+const divMod = (n: number, m: number) => [Math.floor(n / m), n % m];
+
+export const createDurationFormatter = (
+    locale: Locales,
+    unitDisplay: UnitDisplay = 'long',
+    listStyle: Intl.ListFormatStyle = 'long'
+) => {
+    const timeUnitFormatter = (locale: Locales, unit: string, unitDisplay: UnitDisplay) =>
+        Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
+    const fmtDays = timeUnitFormatter(locale, 'day', unitDisplay);
+    const fmtHours = timeUnitFormatter(locale, 'hour', unitDisplay);
+    const fmtMinutes = timeUnitFormatter(locale, 'minute', unitDisplay);
+    const fmtSeconds = timeUnitFormatter(locale, 'second', unitDisplay);
+    const fmtMilliseconds = timeUnitFormatter(locale, 'millisecond', unitDisplay);
+
+    const fmtList = new Intl.ListFormat(locale, { style: listStyle, type: 'conjunction' });
+
+    return {
+        format: (milliseconds: number) => {
+            let days, hours, minutes, seconds;
+            [days, milliseconds] = divMod(milliseconds, 864e5);
+            [hours, milliseconds] = divMod(milliseconds, 36e5);
+            [minutes, milliseconds] = divMod(milliseconds, 6e4);
+            [seconds, milliseconds] = divMod(milliseconds, 1e3);
+
+            return fmtList.format(
+                [
+                    days ? fmtDays(days) : '',
+                    hours ? fmtHours(hours) : '',
+                    minutes ? fmtMinutes(minutes) : '',
+                    seconds ? fmtSeconds(seconds) : '',
+                    milliseconds ? fmtMilliseconds(milliseconds) : '',
+                ].filter((v) => v !== '')
+            );
+        },
+    };
 };
