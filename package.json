@@ -1,41 +1,41 @@
 {
-  "name": "@julesrx/utils",
-  "private": false,
-  "version": "0.0.4",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.mjs",
-      "module": "./dist/index.esm.js",
-      "require": "./dist/index.js"
+    "name": "@julesrx/utils",
+    "private": false,
+    "version": "0.0.4",
+    "main": "./dist/index.js",
+    "module": "./dist/index.esm.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": "./dist/index.mjs",
+            "module": "./dist/index.esm.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist/**/*.{js,d.ts,mjs,d.mts}"
+    ],
+    "author": "Jules Raffoux (https://julesrx.fr)",
+    "repository": "github:julesrx/utils",
+    "homepage": "https://github.com/julesrx/utils",
+    "license": "MIT",
+    "scripts": {
+        "build": "bunchee",
+        "test": "vitest",
+        "prepublishOnly": "bun run test --run && bun run build"
+    },
+    "devDependencies": {
+        "bun-types": "latest",
+        "bunchee": "^3.9.2",
+        "typescript": "^5.2.2",
+        "vitest": "^0.34.6"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "idb-keyval": "^6.2.1",
+        "unstorage": "^1.10.1"
     }
-  },
-  "files": [
-    "dist/**/*.{js,d.ts,mjs,d.mts}"
-  ],
-  "author": "Jules Raffoux (https://julesrx.fr)",
-  "repository": "github:julesrx/utils",
-  "homepage": "https://github.com/julesrx/utils",
-  "license": "MIT",
-  "scripts": {
-    "build": "bunchee",
-    "test": "vitest",
-    "prepublishOnly": "bun run test --run && bun run build"
-  },
-  "devDependencies": {
-    "bun-types": "latest",
-    "bunchee": "^3.9.2",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "idb-keyval": "^6.2.1",
-    "unstorage": "^1.10.1"
-  }
 }
