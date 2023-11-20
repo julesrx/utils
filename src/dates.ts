@@ -33,38 +33,53 @@ export const createTimeAgoFormatter = (locales: Locales) => {
 
 const divMod = (n: number, m: number) => [Math.floor(n / m), n % m];
 
+interface DurationFormatterOptions {
+    unitDisplay?: UnitDisplay;
+    listStyle?: Intl.ListFormatStyle;
+    showMilliseconds?: boolean;
+}
+
 export const createDurationFormatter = (
     locale: Locales,
-    unitDisplay: UnitDisplay = 'long',
-    listStyle: Intl.ListFormatStyle = 'long'
+    {
+        unitDisplay = 'long',
+        listStyle = 'long',
+        showMilliseconds = false,
+    }: DurationFormatterOptions = {}
 ) => {
-    const timeUnitFormatter = (locale: Locales, unit: string, unitDisplay: UnitDisplay) =>
-        Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
+    const timeUnitFormatter = (locale: Locales, unit: string, unitDisplay: UnitDisplay) => {
+        return Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
+    };
+
     const fmtDays = timeUnitFormatter(locale, 'day', unitDisplay);
     const fmtHours = timeUnitFormatter(locale, 'hour', unitDisplay);
     const fmtMinutes = timeUnitFormatter(locale, 'minute', unitDisplay);
     const fmtSeconds = timeUnitFormatter(locale, 'second', unitDisplay);
     const fmtMilliseconds = timeUnitFormatter(locale, 'millisecond', unitDisplay);
 
-    const fmtList = new Intl.ListFormat(locale, { style: listStyle, type: 'conjunction' });
+    const listFormatter = new Intl.ListFormat(locale, {
+        style: listStyle,
+        type: 'conjunction',
+    });
 
     return {
         format: (milliseconds: number) => {
             let days, hours, minutes, seconds;
+
             [days, milliseconds] = divMod(milliseconds, 864e5);
             [hours, milliseconds] = divMod(milliseconds, 36e5);
             [minutes, milliseconds] = divMod(milliseconds, 6e4);
             [seconds, milliseconds] = divMod(milliseconds, 1e3);
 
-            return fmtList.format(
-                [
-                    days ? fmtDays(days) : '',
-                    hours ? fmtHours(hours) : '',
-                    minutes ? fmtMinutes(minutes) : '',
-                    seconds ? fmtSeconds(seconds) : '',
-                    milliseconds ? fmtMilliseconds(milliseconds) : '',
-                ].filter((v) => v !== '')
-            );
+            const formats = [
+                days ? fmtDays(days) : '',
+                hours ? fmtHours(hours) : '',
+                minutes ? fmtMinutes(minutes) : '',
+                seconds ? fmtSeconds(seconds) : '',
+                showMilliseconds && milliseconds ? fmtMilliseconds(milliseconds) : '',
+            ];
+
+            return listFormatter.format(formats.filter((v) => v !== ''));
         },
     };
 };

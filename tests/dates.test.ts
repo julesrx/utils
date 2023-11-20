@@ -1,8 +1,10 @@
 import { createTimeAgoFormatter, createDurationFormatter } from '../src/dates';
 import { describe, expect, test, vi } from 'vitest';
 
+const locale = 'en-US';
+
 describe('time ago formatter', () => {
-    const timeAgoFormatter = createTimeAgoFormatter('en-US');
+    const timeAgoFormatter = createTimeAgoFormatter(locale);
 
     test('format seconds ago', () => {
         var now = new Date(2023, 11, 16, 12, 34, 16);
@@ -69,8 +71,12 @@ describe('time ago formatter', () => {
 });
 
 describe.concurrent('duration formatter', () => {
-    const durationFormatter = createDurationFormatter('en-US');
-    const shortFormatter = createDurationFormatter('en-US', 'short', 'narrow');
+    const durationFormatter = createDurationFormatter(locale);
+    const shortFormatter = createDurationFormatter(locale, {
+        unitDisplay: 'short',
+        listStyle: 'narrow',
+    });
+    const withMillisecondsFormatter = createDurationFormatter(locale, { showMilliseconds: true });
 
     test('format 1m', () => expect(durationFormatter.format(6e4)).toBe('1 minute'));
 
@@ -83,4 +89,7 @@ describe.concurrent('duration formatter', () => {
         expect(durationFormatter.format(154849e3)).toBe('1 day, 19 hours, and 49 seconds'));
 
     test('format short 1h19m', () => expect(shortFormatter.format(846e4)).toBe('2 hr, 21 min'));
+
+    test('format with milliseconds 5ms', () =>
+        expect(withMillisecondsFormatter.format(5)).toBe('5 milliseconds'));
 });
