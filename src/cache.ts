@@ -1,4 +1,4 @@
-import { createStorage, type StorageValue } from 'unstorage';
+import { createStorage, type Driver } from 'unstorage';
 import ibb from 'unstorage/drivers/indexedb';
 
 interface CacheItem<T> {
@@ -6,8 +6,26 @@ interface CacheItem<T> {
     expiration?: number;
 }
 
-export const createCacheStorage = (base: string = 'cache') => {
-    const storage = createStorage({ driver: ibb({ base }) });
+interface CacheStorageOptions {
+    driver?: Driver;
+    base?: string;
+}
+
+export interface CacheStorage {
+    get: <T>(id: string) => Promise<T | null>;
+    set: <T>(id: string, value: T, secondsExpiration?: number) => Promise<void>;
+    gset: <T>(
+        id: string,
+        getter: () => T | Promise<T>,
+        secondsExpiration?: number
+    ) => Promise<T | null>;
+}
+
+export const createCacheStorage = ({
+    driver,
+    base = 'cache',
+}: CacheStorageOptions = {}): CacheStorage => {
+    const storage = createStorage({ driver: driver ?? ibb({ base }) });
 
     const get = async <T>(id: string) => {
         const item = await storage.getItem<CacheItem<T>>(id);
@@ -31,7 +49,7 @@ export const createCacheStorage = (base: string = 'cache') => {
         await storage.setItem(id, item);
     };
 
-    const gset = async <T extends StorageValue>(
+    const gset = async <T>(
         id: string,
         getter: () => T | Promise<T>,
         secondsExpiration?: number
