@@ -2,7 +2,7 @@
     "name": "@julesrx/utils",
     "description": "Components and helpers that I use in most of my projects",
     "private": false,
-    "version": "0.0.7",
+    "version": "0.0.8",
     "main": "./dist/index.js",
     "module": "./dist/index.esm.js",
     "types": "./dist/index.d.ts",
