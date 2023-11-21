@@ -1,6 +1,9 @@
 {
     "name": "@julesrx/utils",
     "description": "Components and helpers that I use in most of my projects",
+    "keywords": [
+        "typescript"
+    ],
     "private": false,
     "version": "0.0.8",
     "main": "./dist/index.js",
@@ -21,6 +24,7 @@
     "repository": "github:julesrx/utils",
     "homepage": "https://github.com/julesrx/utils",
     "license": "MIT",
+    "packageManager": "pnpm@8.10.5",
     "scripts": {
         "build": "bunchee",
         "test": "vitest",
@@ -31,7 +35,6 @@
     },
     "devDependencies": {
         "@tsconfig/node20": "^20.1.2",
-        "bun-types": "latest",
         "bunchee": "^3.9.2",
         "typescript": "^5.2.2",
         "vitest": "^0.34.6"
