@@ -27,7 +27,7 @@ export const createCacheStorage = ({
         const item = await storage.getItem<CacheItem<T>>(id);
         if (!item) return null;
 
-        if (item.expiration && item.expiration <= Date.now()) {
+        if (typeof item.expiration === 'number' && item.expiration <= Date.now()) {
             await storage.removeItem(id);
             return null;
         }
@@ -36,10 +36,9 @@ export const createCacheStorage = ({
     };
 
     const set = async <T>(id: string, value: T, secondsExpiration?: number) => {
-        secondsExpiration = secondsExpiration ?? 60 * 30;
+        secondsExpiration = secondsExpiration ?? 1800; // 30mins
 
-        const now = Date.now();
-        const expiration = now + secondsExpiration * 1000;
+        const expiration = Date.now() + secondsExpiration * 1000;
 
         const item: CacheItem<T> = { value, expiration };
         await storage.setItem(id, item);
