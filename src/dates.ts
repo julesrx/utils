@@ -12,7 +12,7 @@ const dateDivisions: Division[] = [
     { amount: Number.POSITIVE_INFINITY, name: 'years' },
 ];
 
-export const createTimeAgoFormatter = (locales: Locales) => {
+export const createTimeAgoFormatter = (locales?: Locales) => {
     const relativeDateFormatter = new Intl.RelativeTimeFormat(locales);
 
     return {
@@ -40,7 +40,7 @@ interface DurationFormatterOptions {
 }
 
 export const createDurationFormatter = (
-    locale: Locales,
+    locales?: Locales,
     {
         unitDisplay = 'long',
         listStyle = 'long',
@@ -51,13 +51,13 @@ export const createDurationFormatter = (
         return Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
     };
 
-    const fmtDays = timeUnitFormatter(locale, 'day', unitDisplay);
-    const fmtHours = timeUnitFormatter(locale, 'hour', unitDisplay);
-    const fmtMinutes = timeUnitFormatter(locale, 'minute', unitDisplay);
-    const fmtSeconds = timeUnitFormatter(locale, 'second', unitDisplay);
-    const fmtMilliseconds = timeUnitFormatter(locale, 'millisecond', unitDisplay);
+    const fmtDays = timeUnitFormatter(locales, 'day', unitDisplay);
+    const fmtHours = timeUnitFormatter(locales, 'hour', unitDisplay);
+    const fmtMinutes = timeUnitFormatter(locales, 'minute', unitDisplay);
+    const fmtSeconds = timeUnitFormatter(locales, 'second', unitDisplay);
+    const fmtMilliseconds = timeUnitFormatter(locales, 'millisecond', unitDisplay);
 
-    const listFormatter = new Intl.ListFormat(locale, {
+    const listFormatter = new Intl.ListFormat(locales, {
         style: listStyle,
         type: 'conjunction',
     });

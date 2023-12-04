@@ -28,7 +28,7 @@
     "scripts": {
         "build": "bunchee",
         "test": "vitest",
-        "prepublishOnly": "bun run test --run && bun run build"
+        "prepublishOnly": "pnpm run test --run && pnpm run build"
     },
     "dependencies": {
         "idb-keyval": "^6.2.1"
