@@ -9,21 +9,16 @@
     ],
     "exports": {
         "./package.json": "./package.json",
-        "./cache": {
-            "types": "./dist/cache.d.ts",
-            "import": "./dist/cache.mjs"
-        },
-        "./dates": {
-            "types": "./dist/dates.d.ts",
-            "import": "./dist/dates.mjs"
-        },
-        "./theme": {
-            "types": "./dist/theme.d.ts",
-            "import": "./dist/theme.mjs"
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
         }
     },
+    "main": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
     "files": [
-        "dist/**/*.{js,d.ts,mjs,d.mts}"
+        "dist"
     ],
     "author": "Jules Raffoux (https://julesrx.fr)",
     "repository": "github:julesrx/utils",
@@ -31,7 +26,7 @@
     "license": "MIT",
     "packageManager": "pnpm@8.10.5",
     "scripts": {
-        "build": "bunchee",
+        "build": "unbuild",
         "test": "vitest",
         "release": "release-it",
         "prepublishOnly": "pnpm run test --run && pnpm run build"
@@ -42,9 +37,9 @@
     },
     "devDependencies": {
         "@tsconfig/recommended": "^1.0.3",
-        "bunchee": "^4.2.6",
         "release-it": "^17.0.1",
         "typescript": "^5.3.3",
+        "unbuild": "^2.0.0",
         "vitest": "^1.1.0"
     }
 }
