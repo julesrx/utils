@@ -9,24 +9,16 @@
     ],
     "exports": {
         "./package.json": "./package.json",
-        "./cache": {
-            "types": "./dist/cache.d.ts",
-            "import": "./dist/cache.mjs",
-            "require": "./dist/cache.cjs"
-        },
-        "./dates": {
-            "types": "./dist/dates.d.ts",
-            "import": "./dist/dates.mjs",
-            "require": "./dist/dates.cjs"
-        },
-        "./theme": {
-            "types": "./dist/theme.d.ts",
-            "import": "./dist/theme.mjs",
-            "require": "./dist/theme.cjs"
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
         }
     },
+    "main": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
     "files": [
-        "dist/**/*.{js,d.ts,mjs,d.mts}"
+        "dist"
     ],
     "author": "Jules Raffoux (https://julesrx.fr)",
     "repository": "github:julesrx/utils",
