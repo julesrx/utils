@@ -33,6 +33,7 @@
     "scripts": {
         "build": "bunchee",
         "test": "vitest",
+        "release": "release-it",
         "prepublishOnly": "pnpm run test --run && pnpm run build"
     },
     "dependencies": {
@@ -42,6 +43,7 @@
     "devDependencies": {
         "@tsconfig/recommended": "^1.0.3",
         "bunchee": "^4.2.6",
+        "release-it": "^17.0.1",
         "typescript": "^5.3.3",
         "vitest": "^1.1.0"
     }
