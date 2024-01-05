@@ -28,8 +28,7 @@
     "scripts": {
         "build": "unbuild",
         "test": "vitest",
-        "release": "release-it",
-        "prepublishOnly": "pnpm run test --run && pnpm run build"
+        "release": "release-it"
     },
     "dependencies": {
         "idb-keyval": "^6.2.1",
