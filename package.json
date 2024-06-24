@@ -2,7 +2,7 @@
     "name": "@julesrx/utils",
     "private": false,
     "type": "module",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "description": "Components and helpers that I use in most of my projects",
     "keywords": [
         "typescript"
