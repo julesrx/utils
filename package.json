@@ -1,44 +1,44 @@
 {
-    "name": "@julesrx/utils",
-    "private": false,
-    "type": "module",
-    "version": "0.0.14",
-    "description": "Components and helpers that I use in most of my projects",
-    "keywords": [
-        "typescript"
-    ],
-    "exports": {
-        "./package.json": "./package.json",
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs"
-        }
-    },
-    "main": "./dist/index.cjs",
-    "types": "./dist/index.d.ts",
-    "files": [
-        "dist"
-    ],
-    "author": "Jules Raffoux (https://julesrx.fr)",
-    "repository": "github:julesrx/utils",
-    "homepage": "https://github.com/julesrx/utils",
-    "license": "MIT",
-    "packageManager": "pnpm@8.10.5",
-    "scripts": {
-        "build": "tsc && unbuild",
-        "test": "vitest",
-        "release": "release-it"
-    },
-    "dependencies": {
-        "idb-keyval": "^6.2.1",
-        "unstorage": "^1.10.2"
-    },
-    "devDependencies": {
-        "@tsconfig/recommended": "^1.0.6",
-        "release-it": "^17.4.0",
-        "typescript": "^5.5.2",
-        "unbuild": "^2.0.0",
-        "vitest": "^1.6.0"
+  "name": "@julesrx/utils",
+  "private": false,
+  "type": "module",
+  "version": "0.0.14",
+  "description": "Components and helpers that I use in most of my projects",
+  "keywords": [
+    "typescript"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Jules Raffoux (https://julesrx.fr)",
+  "repository": "github:julesrx/utils",
+  "homepage": "https://github.com/julesrx/utils",
+  "license": "MIT",
+  "packageManager": "pnpm@9.4.0",
+  "scripts": {
+    "build": "tsc && unbuild",
+    "test": "vitest",
+    "release": "release-it"
+  },
+  "dependencies": {
+    "idb-keyval": "^6.2.1",
+    "unstorage": "^1.10.2"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.7",
+    "release-it": "^17.4.1",
+    "typescript": "^5.5.3",
+    "unbuild": "^2.0.0",
+    "vitest": "^1.6.0"
+  }
 }

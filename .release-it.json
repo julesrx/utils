@@ -1,12 +1,12 @@
 {
-    "hooks": {
-        "before:init": ["pnpm run test --run", "pnpm run build"]
-    },
-    "git": {
-        "commitMessage": "chore: release v${version}",
-        "tag": false
-    },
-    "github": {
-        "release": false
-    }
+  "hooks": {
+    "before:init": ["pnpm run test --run", "pnpm run build"]
+  },
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tag": false
+  },
+  "github": {
+    "release": false
+  }
 }
