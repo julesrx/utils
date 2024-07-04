@@ -24,7 +24,7 @@
   "repository": "github:julesrx/utils",
   "homepage": "https://github.com/julesrx/utils",
   "license": "MIT",
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "build": "tsc && unbuild",
     "test": "vitest",
