@@ -3,21 +3,21 @@ name: Build and test
 on: [push]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 20
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-            - uses: pnpm/action-setup@v2
-              with:
-                  run_install: true
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: true
 
-            - name: Build
-              run: pnpm build
+      - name: Build
+        run: pnpm build
 
-            - name: Test
-              run: pnpm test
+      - name: Test
+        run: pnpm test
